@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>下载编译Chromium源码</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+/* GitHub stylesheet for MarkdownPad (http://markdownpad.com) */
+/* Author: Nicolas Hery - http://nicolashery.com */
+/* Version: b13fe65ca28d2e568c6ed5d7f06581183df8f2ff */
+/* Source: https://github.com/nicolahery/markdownpad-github */
+
+/* RESET
+=============================================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* BODY
+=============================================================================*/
+
+body {
+  font-family: Helvetica, arial, freesans, clean, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+body>*:first-child {
+  margin-top: 0 !important;
+}
+
+body>*:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* BLOCKS
+=============================================================================*/
+
+p, blockquote, ul, ol, dl, table, pre {
+  margin: 15px 0;
+}
+
+/* HEADERS
+=============================================================================*/
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 tt, h1 code, h2 tt, h2 code, h3 tt, h3 code, h4 tt, h4 code, h5 tt, h5 code, h6 tt, h6 code {
+  font-size: inherit;
+}
+
+h1 {
+  font-size: 28px;
+  color: #000;
+}
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #ccc;
+  color: #000;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  color: #777;
+  font-size: 14px;
+}
+
+body>h2:first-child, body>h1:first-child, body>h1:first-child+h2, body>h3:first-child, body>h4:first-child, body>h5:first-child, body>h6:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+h1+p, h2+p, h3+p, h4+p, h5+p, h6+p {
+  margin-top: 10px;
+}
+
+/* LINKS
+=============================================================================*/
+
+a {
+  color: #4183C4;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* LISTS
+=============================================================================*/
+
+ul, ol {
+  padding-left: 30px;
+}
+
+ul li > :first-child, 
+ol li > :first-child, 
+ul li ul:first-of-type, 
+ol li ol:first-of-type, 
+ul li ol:first-of-type, 
+ol li ul:first-of-type {
+  margin-top: 0px;
+}
+
+ul ul, ul ol, ol ol, ol ul {
+  margin-bottom: 0;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 14px;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0;
+  margin: 15px 0 5px;
+}
+
+dl dt:first-child {
+  padding: 0;
+}
+
+dl dt>:first-child {
+  margin-top: 0px;
+}
+
+dl dt>:last-child {
+  margin-bottom: 0px;
+}
+
+dl dd {
+  margin: 0 0 15px;
+  padding: 0 15px;
+}
+
+dl dd>:first-child {
+  margin-top: 0px;
+}
+
+dl dd>:last-child {
+  margin-bottom: 0px;
+}
+
+/* CODE
+=============================================================================*/
+
+pre, code, tt {
+  font-size: 12px;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+}
+
+code, tt {
+  margin: 0 0px;
+  padding: 0px 0px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px;
+}
+
+pre>code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+pre code, pre tt {
+  background-color: transparent;
+  border: none;
+}
+
+kbd {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #DDDDDD;
+    background-image: linear-gradient(#F1F1F1, #DDDDDD);
+    background-repeat: repeat-x;
+    border-color: #DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 10px;
+    padding: 1px 4px;
+}
+
+/* QUOTES
+=============================================================================*/
+
+blockquote {
+  border-left: 4px solid #DDD;
+  padding: 0 15px;
+  color: #777;
+}
+
+blockquote>:first-child {
+  margin-top: 0px;
+}
+
+blockquote>:last-child {
+  margin-bottom: 0px;
+}
+
+/* HORIZONTAL RULES
+=============================================================================*/
+
+hr {
+  clear: both;
+  margin: 15px 0;
+  height: 0px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  border-bottom: 4px solid #ddd;
+  padding: 0;
+}
+
+/* TABLES
+=============================================================================*/
+
+table th {
+  font-weight: bold;
+}
+
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 13px;
+}
+
+table tr {
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+/* IMAGES
+=============================================================================*/
+
+img {
+  max-width: 100%
+}
+</style>
+<style type="text/css">
+.highlight  { background: #ffffff; }
+.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.highlight .k { font-weight: bold } /* Keyword */
+.highlight .o { font-weight: bold } /* Operator */
+.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #aa0000 } /* Generic.Error */
+.highlight .gh { color: #999999 } /* Generic.Heading */
+.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #555555 } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
+.highlight .gt { color: #aa0000 } /* Generic.Traceback */
+.highlight .kc { font-weight: bold } /* Keyword.Constant */
+.highlight .kd { font-weight: bold } /* Keyword.Declaration */
+.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
+.highlight .kr { font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+.highlight .m { color: #009999 } /* Literal.Number */
+.highlight .s { color: #d14 } /* Literal.String */
+.highlight .na { color: #008080 } /* Name.Attribute */
+.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
+.highlight .no { color: #008080 } /* Name.Constant */
+.highlight .ni { color: #800080 } /* Name.Entity */
+.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
+.highlight .nn { color: #555555 } /* Name.Namespace */
+.highlight .nt { color: #000080 } /* Name.Tag */
+.highlight .nv { color: #008080 } /* Name.Variable */
+.highlight .ow { font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mf { color: #009999 } /* Literal.Number.Float */
+.highlight .mh { color: #009999 } /* Literal.Number.Hex */
+.highlight .mi { color: #009999 } /* Literal.Number.Integer */
+.highlight .mo { color: #009999 } /* Literal.Number.Oct */
+.highlight .sb { color: #d14 } /* Literal.String.Backtick */
+.highlight .sc { color: #d14 } /* Literal.String.Char */
+.highlight .sd { color: #d14 } /* Literal.String.Doc */
+.highlight .s2 { color: #d14 } /* Literal.String.Double */
+.highlight .se { color: #d14 } /* Literal.String.Escape */
+.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
+.highlight .si { color: #d14 } /* Literal.String.Interpol */
+.highlight .sx { color: #d14 } /* Literal.String.Other */
+.highlight .sr { color: #009926 } /* Literal.String.Regex */
+.highlight .s1 { color: #d14 } /* Literal.String.Single */
+.highlight .ss { color: #990073 } /* Literal.String.Symbol */
+.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #008080 } /* Name.Variable.Class */
+.highlight .vg { color: #008080 } /* Name.Variable.Global */
+.highlight .vi { color: #008080 } /* Name.Variable.Instance */
+.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.pl-c {
+    color: #969896;
+}
+
+.pl-c1,.pl-mdh,.pl-mm,.pl-mp,.pl-mr,.pl-s1 .pl-v,.pl-s3,.pl-sc,.pl-sv {
+    color: #0086b3;
+}
+
+.pl-e,.pl-en {
+    color: #795da3;
+}
+
+.pl-s1 .pl-s2,.pl-smi,.pl-smp,.pl-stj,.pl-vo,.pl-vpf {
+    color: #333;
+}
+
+.pl-ent {
+    color: #63a35c;
+}
+
+.pl-k,.pl-s,.pl-st {
+    color: #a71d5d;
+}
+
+.pl-pds,.pl-s1,.pl-s1 .pl-pse .pl-s2,.pl-sr,.pl-sr .pl-cce,.pl-sr .pl-sra,.pl-sr .pl-sre,.pl-src,.pl-v {
+    color: #df5000;
+}
+
+.pl-id {
+    color: #b52a1d;
+}
+
+.pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+}
+
+.pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+}
+
+.pl-ml {
+    color: #693a17;
+}
+
+.pl-mh,.pl-mh .pl-en,.pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+}
+
+.pl-mq {
+    color: #008080;
+}
+
+.pl-mi {
+    color: #333;
+    font-style: italic;
+}
+
+.pl-mb {
+    color: #333;
+    font-weight: bold;
+}
+
+.pl-md,.pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+}
+
+.pl-mdht,.pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+}
+
+.pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+}
+
+.pl-mo {
+    color: #1d3e81;
+}
+.task-list {
+padding-left:10px;
+margin-bottom:0;
+}
+
+.task-list li {
+    margin-left: 20px;
+}
+
+.task-list-item {
+list-style-type:none;
+padding-left:10px;
+}
+
+.task-list-item label {
+font-weight:400;
+}
+
+.task-list-item.enabled label {
+cursor:pointer;
+}
+
+.task-list-item+.task-list-item {
+margin-top:3px;
+}
+
+.task-list-item-checkbox {
+display:inline-block;
+margin-left:-20px;
+margin-right:3px;
+vertical-align:1px;
+}
+</style>
+</head>
+<body>
+<h1 id="-chromium-">下载编译Chromium源码</h1>
+<p><strong>Author：wnagzihxa1n<br>Mail：wnagzihxa1n@163.com</strong></p>
+<p><strong>编译Chromium的源码绝对是个看人品的活，测试了很多方法，编译了很久，各种报错</strong></p>
+<p>接下来我介绍我发现的一种下载编译Chromium的骚姿势</p>
+<h2 id="0x00-">0x00 准备材料</h2>
+<ul>
+<li>Ubuntu 14.04 x64</li><li>8G内存</li><li>一个好梯子，我使用SSR</li><li>比较充足的时间</li></ul>
+<h2 id="0x01-">0x01 配置梯子环境</h2>
+<p>老祖宗说：“工欲善其事，必先利其器。”</p>
+<p>鉴于某些我们都知道的原因，直接按照谷歌官方的描述是下载不了源码的</p>
+<p>我这里使用SSR来配置梯子，梯子代理到了本地的1080端口，这个过程自己配置，我不过多叙述</p>
+<p>梯子配置完后，我们需要给git也设置代理</p>
+<pre><code>git config --global http.proxy &#39;socks5://127.0.0.1:1080&#39; 
+git config --global https.proxy &#39;socks5://127.0.0.1:1080&#39;
+</code></pre><p>如果不想用了，关闭git代理</p>
+<pre><code>git config --global --unset http.proxy
+git config --global --unset https.proxy
+</code></pre><p>有了git代理是不够的，还需要给终端设置代理</p>
+<pre><code>sudo apt-get install polipo
+</code></pre><p>打开终端配置，位置在<code>/etc/polipo/config</code></p>
+<pre><code>logSyslog = true:
+logFile = &quot;/var/log/polipo/polipo.log&quot;
+
+socksParentProxy = &quot;127.0.0.1:1080&quot;  #这是socks代理的地址和端口
+socksProxyType = socks5
+
+chunkHighMark = 50331648
+objectHighMark = 16384
+
+serverMaxSlots = 64
+serverSlots = 16
+serverSlots1 = 32
+
+# 我们最后要使用这个地址作为代理，它会去走SSR的代理
+proxyAddress = &quot;127.0.0.1&quot; #这是本代理的地址端口 
+proxyPort = 8123
+</code></pre><p>重启polipo</p>
+<pre><code>sudo service polipo restart
+</code></pre><p>最后设置环境变量</p>
+<pre><code>export http_proxy=&quot;http://127.0.0.1:8123&quot;
+export https_proxy=&quot;https://127.0.0.1:8123&quot;
+</code></pre><p>此时所有环境变量都配置完成</p>
+<h2 id="0x02-chromium-">0x02 下载Chromium源码</h2>
+<p>在Ubuntu下编译的教程在此，然而即使是开了代理也会有很多奇奇怪怪的错误</p>
+<ul>
+<li><a href="https://chromium.googlesource.com/chromium/src/+/master/docs/linux_build_instructions.md">https://chromium.googlesource.com/chromium/src/+/master/docs/linux_build_instructions.md</a></li></ul>
+<p>创建一个工程文件夹</p>
+<pre><code>mkdir ChromePwn
+cd ChromePwn
+</code></pre><p>下载<code>depot_tools</code></p>
+<pre><code>git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+</code></pre><p>设置环境变量，我这里在<code>.bashrc</code>中加入</p>
+<pre><code>export PATH=&quot;$PATH:/path/to/depot_tools&quot;
+</code></pre><p>修改完毕，使其生效</p>
+<pre><code>source ~/.bashrc
+</code></pre><p>创建Chromium源码文件夹</p>
+<pre><code>mkdir Chromium
+cd Chromium
+</code></pre><p>执行下载</p>
+<pre><code>fetch --nohooks chromium
+</code></pre><p>如果中途断开，继续下载即可</p>
+<pre><code>gclient sync
+</code></pre><p>看起来是很完美的，然而我下载了很久，每次都是莫名其妙断开，于是继续重新开始下载，这么大一个工程竟然不支持断点续传</p>
+<p><strong>下载步骤从这里真正开始，上面都是瞎扯的</strong></p>
+<p>好在我找到了一个Github项目，上面存放了Chromium众多版本源码，顺手就fork了一份，我准备把40以后的源码都下载一份备用</p>
+<ul>
+<li><a href="https://github.com/wnagzihxa1n/chromium-source-tarball">https://github.com/wnagzihxa1n/chromium-source-tarball</a></li></ul>
+<p>这里因为要复现一个漏洞，所以我选择了<code>59.0.3071.104</code></p>
+<p>下载回来，解压缩，目前项目情况是</p>
+<pre><code>Chromium/chromium-59.0.3071.104
+</code></pre><p>这个目录下面就是全部的源码，没有<code>src</code>目录，进入这个目录，我们在这个目录下创建两个文件</p>
+<pre><code>.gclient
+.gclient_entries
+</code></pre><p>第一个文件<code>.gclient</code></p>
+<pre><code>solutions = [
+  { &quot;name&quot;        : &quot;src&quot;,
+    &quot;url&quot;         : &quot;https://chromium.googlesource.com/chromium/src.git&quot;,
+    &quot;deps_file&quot;   : &quot;DEPS&quot;,
+    &quot;managed&quot;     : True,
+    &quot;custom_deps&quot; : {
+    },
+    &quot;safesync_url&quot;: &quot;&quot;,
+  },
+]
+cache_dir = &quot;/chromium/cache&quot;
+</code></pre><p>第二个文件<code>.gclient_entries</code></p>
+<pre><code>entries = {
+  &#39;src&#39;: &#39;https://chromium.googlesource.com/chromium/src.git&#39;,
+  &#39;src/breakpad/src&#39;: &#39;https://chromium.googlesource.com/breakpad/breakpad/src.git@2dadd64db9965d8a621d52712abe95f96c4a1e0a&#39;,
+  &#39;src/buildtools&#39;: &#39;https://chromium.googlesource.com/chromium/buildtools.git@991f459071f96102b7bcb5fb5db6757b52d4238f&#39;,
+  &#39;src/chrome/test/data/perf/canvas_bench&#39;: &#39;https://chromium.googlesource.com/chromium/canvas_bench.git@a7b40ea5ae0239517d78845a5fc9b12976bfc732&#39;,
+  &#39;src/chrome/test/data/perf/frame_rate/content&#39;: &#39;https://chromium.googlesource.com/chromium/frame_rate/content.git@c10272c88463efeef6bb19c9ec07c42bc8fe22b9&#39;,
+  &#39;src/media/cdm/api&#39;: &#39;https://chromium.googlesource.com/chromium/cdm.git@6a62dcef02523e2d5be4defb68a7d9363c7389d2&#39;,
+  &#39;src/native_client&#39;: &#39;https://chromium.googlesource.com/native_client/src/native_client.git@163dfeb43e76995b4265ecd4e78670f7dd432e44&#39;,
+  &#39;src/sdch/open-vcdiff&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/open-vcdiff.git@2b9bd1fe548520e9355e457a134bab7e2f9c56c0&#39;,
+  &#39;src/testing/gmock&#39;: &#39;https://chromium.googlesource.com/external/googlemock.git@0421b6f358139f02e102c9c332ce19a33faf75be&#39;,
+  &#39;src/testing/gtest&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/googletest.git@6f8a66431cb592dad629028a50b3dd418a408c87&#39;,
+  &#39;src/third_party/SPIRV-Tools/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/KhronosGroup/SPIRV-Tools.git@9166854ac93ef81b026e943ccd230fed6c8b8d3c&#39;,
+  &#39;src/third_party/angle&#39;: &#39;https://chromium.googlesource.com/angle/angle.git@a4aaa2de57dc51243da35ea147d289a21a9f0c49&#39;,
+  &#39;src/third_party/bidichecker&#39;: &#39;https://chromium.googlesource.com/external/bidichecker/lib.git@97f2aa645b74c28c57eca56992235c79850fa9e0&#39;,
+  &#39;src/third_party/bison&#39;: &#39;https://chromium.googlesource.com/chromium/deps/bison.git@083c9a45e4affdd5464ee2b224c2df649c6e26c3&#39;,
+  &#39;src/third_party/boringssl/src&#39;: &#39;https://boringssl.googlesource.com/boringssl.git@e1cc35e581a6d42f618d8c783f36faebc6023bb7&#39;,
+  &#39;src/third_party/catapult&#39;: &#39;https://chromium.googlesource.com/external/github.com/catapult-project/catapult.git@81f71e551ef237558bda54ba8f84509e1a36977a&#39;,
+  &#39;src/third_party/ced/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/compact_enc_det.git@9012c0ab648025dd0f8df14294bf5d6d73793ac9&#39;,
+  &#39;src/third_party/cld_2/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/CLD2Owners/cld2.git@84b58a5d7690ebf05a91406f371ce00c3daf31c0&#39;,
+  &#39;src/third_party/cld_3/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/cld_3.git@ae02d6b8a2af41e87c956c7c7d3f651a8b7b9e79&#39;,
+  &#39;src/third_party/colorama/src&#39;: &#39;https://chromium.googlesource.com/external/colorama.git@799604a1041e9b3bc5d2789ecbd7e8db2e18e6b8&#39;,
+  &#39;src/third_party/cygwin&#39;: &#39;https://chromium.googlesource.com/chromium/deps/cygwin.git@c89e446b273697fadf3a10ff1007a97c0b7de6df&#39;,
+  &#39;src/third_party/dom_distiller_js/dist&#39;: &#39;https://chromium.googlesource.com/external/github.com/chromium/dom-distiller-dist.git@241e65eb93dd3e0dec2e0d3e0e0cac7a0e74e82c&#39;,
+  &#39;src/third_party/ffmpeg&#39;: &#39;https://chromium.googlesource.com/chromium/third_party/ffmpeg.git@4c35fe00477f20343294cc5827cc5abab6c005fd&#39;,
+  &#39;src/third_party/flac&#39;: &#39;https://chromium.googlesource.com/chromium/deps/flac.git@d0c35f878ec26f969c1631350b1d36fbd88ad8bb&#39;,
+  &#39;src/third_party/flatbuffers/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/flatbuffers.git@e92ae5199d52fd59540a800bec7eef46cd778257&#39;,
+  &#39;src/third_party/glslang/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/glslang.git@210c6bf4d8119dc5f8ac21da2d4c87184f7015e0&#39;,
+  &#39;src/third_party/gnu_binutils&#39;: &#39;https://chromium.googlesource.com/native_client/deps/third_party/gnu_binutils.git@f4003433b61b25666565690caf3d7a7a1a4ec436&#39;,
+  &#39;src/third_party/gperf&#39;: &#39;https://chromium.googlesource.com/chromium/deps/gperf.git@d892d79f64f9449770443fb06da49b5a1e5d33c1&#39;,
+  &#39;src/third_party/hunspell_dictionaries&#39;: &#39;https://chromium.googlesource.com/chromium/deps/hunspell_dictionaries.git@dc6e7c25bf47cbfb466e0701fd2728b4a12e79d5&#39;,
+  &#39;src/third_party/icu&#39;: &#39;https://chromium.googlesource.com/chromium/deps/icu.git@85817893162f4fdcc30ccdd288d43540d4a2b358&#39;,
+  &#39;src/third_party/jsoncpp/source&#39;: &#39;https://chromium.googlesource.com/external/github.com/open-source-parsers/jsoncpp.git@f572e8e42e22cfcf5ab0aea26574f408943edfa4&#39;,
+  &#39;src/third_party/leveldatabase/src&#39;: &#39;https://chromium.googlesource.com/external/leveldb.git@a7bff697baa062c8f6b8fb760eacf658712b611a&#39;,
+  &#39;src/third_party/libFuzzer/src&#39;: &#39;https://chromium.googlesource.com/chromium/llvm-project/llvm/lib/Fuzzer.git@2ed967ccadb496a1e916d9bd33a41386900dfb6a&#39;,
+  &#39;src/third_party/libaddressinput/src&#39;: &#39;https://chromium.googlesource.com/external/libaddressinput.git@4d18a0d4be9add0dc479e7b939ed8d39f6ec0d73&#39;,
+  &#39;src/third_party/libjpeg_turbo&#39;: &#39;https://chromium.googlesource.com/chromium/deps/libjpeg_turbo.git@7260e4d8b8e1e40b17f03fafdf1cd83296900f76&#39;,
+  &#39;src/third_party/libphonenumber/dist&#39;: &#39;https://chromium.googlesource.com/external/libphonenumber.git@a4da30df63a097d67e3c429ead6790ad91d36cf4&#39;,
+  &#39;src/third_party/libsrtp&#39;: &#39;https://chromium.googlesource.com/chromium/deps/libsrtp.git@0e0936f3013fe5884eac82f95e370c8d460a179f&#39;,
+  &#39;src/third_party/libvpx/source/libvpx&#39;: &#39;https://chromium.googlesource.com/webm/libvpx.git@3219aac9dfb0a087c9e79c02ebe4704b97769c8c&#39;,
+  &#39;src/third_party/libwebm/source&#39;: &#39;https://chromium.googlesource.com/webm/libwebm.git@9a235e0bc94319c5f7184bd69cbe5468a74a025c&#39;,
+  &#39;src/third_party/libyuv&#39;: &#39;https://chromium.googlesource.com/libyuv/libyuv.git@97fb18b846c52ef3596763184cf1f2686eed5f3c&#39;,
+  &#39;src/third_party/lighttpd&#39;: &#39;https://chromium.googlesource.com/chromium/deps/lighttpd.git@9dfa55d15937a688a92cbf2b7a8621b0927d06eb&#39;,
+  &#39;src/third_party/mesa/src&#39;: &#39;https://chromium.googlesource.com/chromium/deps/mesa.git@ef811c6bd4de74e13e7035ca882cc77f85793fef&#39;,
+  &#39;src/third_party/mingw-w64/mingw/bin&#39;: &#39;https://chromium.googlesource.com/native_client/deps/third_party/mingw-w64/mingw/bin.git@3cc8b140b883a9fe4986d12cfd46c16a093d3527&#39;,
+  &#39;src/third_party/nacl_sdk_binaries&#39;: &#39;https://chromium.googlesource.com/chromium/deps/nacl_sdk_binaries.git@759dfca03bdc774da7ecbf974f6e2b84f43699a5&#39;,
+  &#39;src/third_party/openh264/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/cisco/openh264@0fd88df93c5dcaf858c57eb7892bd27763f0f0ac&#39;,
+  &#39;src/third_party/openmax_dl&#39;: &#39;https://chromium.googlesource.com/external/webrtc/deps/third_party/openmax.git@57d33bee7823e76393692f8d58e0478d6b79d153&#39;,
+  &#39;src/third_party/pdfium&#39;: &#39;https://pdfium.googlesource.com/pdfium.git@75c2af49705f99267ef74e742d536c7327aeb452&#39;,
+  &#39;src/third_party/pefile&#39;: &#39;https://chromium.googlesource.com/external/pefile.git@72c6ae42396cb913bcab63c15585dc3b5c3f92f1&#39;,
+  &#39;src/third_party/perl&#39;: &#39;https://chromium.googlesource.com/chromium/deps/perl.git@ac0d98b5cee6c024b0cffeb4f8f45b6fc5ccdb78&#39;,
+  &#39;src/third_party/psyco_win32&#39;: &#39;https://chromium.googlesource.com/chromium/deps/psyco_win32.git@f5af9f6910ee5a8075bbaeed0591469f1661d868&#39;,
+  &#39;src/third_party/py_trace_event/src&#39;: &#39;https://chromium.googlesource.com/external/py_trace_event.git@dd463ea9e2c430de2b9e53dea57a77b4c3ac9b30&#39;,
+  &#39;src/third_party/pyftpdlib/src&#39;: &#39;https://chromium.googlesource.com/external/pyftpdlib.git@2be6d65e31c7ee6320d059f581f05ae8d89d7e45&#39;,
+  &#39;src/third_party/pywebsocket/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/pywebsocket.git@2d7b73c3acbd0f41dcab487ae5c97c6feae06ce2&#39;,
+  &#39;src/third_party/re2/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/re2.git@dba3349aba83b5588e85e5ecf2b56c97f2d259b7&#39;,
+  &#39;src/third_party/scons-2.0.1&#39;: &#39;https://chromium.googlesource.com/native_client/src/third_party/scons-2.0.1.git@1c1550e17fc26355d08627fbdec13d8291227067&#39;,
+  &#39;src/third_party/sfntly/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/googlei18n/sfntly.git@64f78562d2003eb7cacaaa86a398cbd41881ba6f&#39;,
+  &#39;src/third_party/shaderc/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/google/shaderc.git@cd8793c34907073025af2622c28bcee64e9879a4&#39;,
+  &#39;src/third_party/skia&#39;: &#39;https://skia.googlesource.com/skia.git@dd45f8195783efc7b8044b006eae5ea5ac127cc2&#39;,
+  &#39;src/third_party/smhasher/src&#39;: &#39;https://chromium.googlesource.com/external/smhasher.git@e87738e57558e0ec472b2fc3a643b838e5b6e88f&#39;,
+  &#39;src/third_party/snappy/src&#39;: &#39;https://chromium.googlesource.com/external/snappy.git@762bb32f0c9d2f31ba4958c7c0933d22e80c20bf&#39;,
+  &#39;src/third_party/swiftshader&#39;: &#39;https://swiftshader.googlesource.com/SwiftShader.git@a6e99c02de6162a6a55f5de3d42c2e8c190cf3f2&#39;,
+  &#39;src/third_party/usrsctp/usrsctplib&#39;: &#39;https://chromium.googlesource.com/external/github.com/sctplab/usrsctp@7f9228152ab3d70e6848cc9c67389a0d4218740e&#39;,
+  &#39;src/third_party/visualmetrics/src&#39;: &#39;https://chromium.googlesource.com/external/github.com/WPO-Foundation/visualmetrics.git@1edde9d2fe203229c895b648fdec355917200ad6&#39;,
+  &#39;src/third_party/webdriver/pylib&#39;: &#39;https://chromium.googlesource.com/external/selenium/py.git@5fd78261a75fe08d27ca4835fb6c5ce4b42275bd&#39;,
+  &#39;src/third_party/webgl/src&#39;: &#39;https://chromium.googlesource.com/external/khronosgroup/webgl.git@d12037a99155a7d884845759d0f7461c3e12ac96&#39;,
+  &#39;src/third_party/webpagereplay&#39;: &#39;https://chromium.googlesource.com/external/github.com/chromium/web-page-replay.git@3cd3a3f6f06a1b87b14b9162c7eb16d23d141241&#39;,
+  &#39;src/third_party/webrtc&#39;: &#39;https://chromium.googlesource.com/external/webrtc/trunk/webrtc.git@f141d331e4a42bfd7755cf8011b9c2220718a723&#39;,
+  &#39;src/third_party/yasm/binaries&#39;: &#39;https://chromium.googlesource.com/chromium/deps/yasm/binaries.git@52f9b3f4b0aa06da24ef8b123058bb61ee468881&#39;,
+  &#39;src/third_party/yasm/source/patched-yasm&#39;: &#39;https://chromium.googlesource.com/chromium/deps/yasm/patched-yasm.git@7da28c6c7c6a1387217352ce02b31754deb54d2a&#39;,
+  &#39;src/tools/gyp&#39;: &#39;https://chromium.googlesource.com/external/gyp.git@e7079f0e0e14108ab0dba58728ff219637458563&#39;,
+  &#39;src/tools/page_cycler/acid3&#39;: &#39;https://chromium.googlesource.com/chromium/deps/acid3.git@6be0a66a1ebd7ebc5abc1b2f405a945f6d871521&#39;,
+  &#39;src/tools/swarming_client&#39;: &#39;https://chromium.googlesource.com/external/swarming.client.git@ebc8dab6f8b8d79ec221c94de39a921145abd404&#39;,
+  &#39;src/v8&#39;: &#39;https://chromium.googlesource.com/v8/v8.git@93947afa548945132d5069544f881257d36df5f8&#39;,
+  &#39;src\\buildtools\\clang_format\\script&#39;: &#39;https://chromium.googlesource.com/chromium/llvm-project/cfe/tools/clang-format.git@6a413e91d56d6fd0a6ff2f97c905c6dc5ca5d789&#39;,
+  &#39;src\\buildtools\\third_party\\libc++\\trunk&#39;: &#39;https://chromium.googlesource.com/chromium/llvm-project/libcxx.git@b1ece9c037d879843b0b0f5a2802e1e9d443b75a&#39;,
+  &#39;src\\buildtools\\third_party\\libc++abi\\trunk&#39;: &#39;https://chromium.googlesource.com/chromium/llvm-project/libcxxabi.git@0edb61e2e581758fc4cd4cd09fc588b3fc91a653&#39;,
+}
+</code></pre><p>执行下面的命令，我这个姿势，就这里需要用到梯子</p>
+<pre><code>gclient runhooks
+</code></pre><p>中间会遇到很多问题，自己慢慢解决就好，虽然很多问题都是搜不到的，相信我，搜不到</p>
+<p>这一步其实挺折腾的，我建议在<code>depot_tools/update_depot_tools.bat</code>中添加一句，去掉自动更新</p>
+<pre><code>set DEPOT_TOOLS_UPDATE=0 我们加的一句
+
+:: Shall skip automatic update?
+IF &quot;%DEPOT_TOOLS_UPDATE%&quot; == &quot;0&quot; GOTO :EOF
+</code></pre><p>如果开始提示缺少<code>wasm</code>什么的文件，这个时候就需要骚姿势上场了</p>
+<p>我们先查看一下我们的Chromium版本对应的V8b版本</p>
+<ul>
+<li><a href="https://omahaproxy.appspot.com/">https://omahaproxy.appspot.com/</a></li></ul>
+<p>查询结果</p>
+<pre><code>Commit: 98a3a7375652f76d056123496d91a1acc9dc819e
+Branch Base Commit: a106f0abbf69dad349d4aaf4bcc4f5d376dd2377
+Branch Base Position: 464641
+V8 Commit: c7fae8b9e56616d71d4f6d5c6160a75c52900ffa
+V8 Version: 5.9.211.35
+V8 Position: 74
+Skia Commit: ef6f9c65527412ec4057ea0551f2e051beb94d32
+</code></pre><p>我们在下面这个地址下载对应的谷歌Chromium源码和V8源码</p>
+<ul>
+<li><a href="https://chromium.googlesource.com/chromium/src/+/59.0.3071.104">https://chromium.googlesource.com/chromium/src/+/59.0.3071.104</a></li><li><a href="https://chromium.googlesource.com/v8/v8/+/c7fae8b9e56616d71d4f6d5c6160a75c52900ffa">https://chromium.googlesource.com/v8/v8/+/c7fae8b9e56616d71d4f6d5c6160a75c52900ffa</a></li></ul>
+<p>点击下面的<code>[tgz]</code>就可以下载整个压缩包</p>
+<pre><code>commit    98a3a7375652f76d056123496d91a1acc9dc819e    [log] [tgz]
+</code></pre><p>然后就可以缺什么就补充什么了</p>
+<p>最后就可以完成啦</p>
+<p>再下载一些文件</p>
+<pre><code>./build/install-build-deps.sh –no-chromeos-fonts
+</code></pre><p>开始执行编译，先生成编译文件</p>
+<pre><code>gn gen out/Default
+</code></pre><p>执行编译，这一步也有可能缺少文件，按照上面的方法，缺什么，就补什么，需要说明的一点是，V8可以整个直接覆盖过去</p>
+<pre><code>ninja -C out/Default
+</code></pre><p>会很慢，特别是后面链接过程，机子都卡的不能动</p>
+<p>好在最后还是编译完了，设置一下沙箱，因为我们没有沙箱</p>
+<pre><code>export CHROME_DEVEL_SANDBOX=/usr/local/sbin/chrome-devel-sandbox
+</code></pre><p>跑起来，在<code>out/Default</code>目录下</p>
+<pre><code>./chrome
+</code></pre><p>大功告成</p>
+
+</body>
+</html>
+<!-- This document was created with MarkdownPad, the Markdown editor for Windows (http://markdownpad.com) -->
